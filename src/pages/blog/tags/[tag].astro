@@ -1,4 +1,11 @@
 ---
+import { getUniqueTags } from "@/utils/blog";
+
+export async function getStaticPaths() {
+  const tags = await getUniqueTags();
+  return tags.map((tag) => ({ params: { tag } }));
+}
+
 const { tag } = Astro.params;
 return Astro.redirect(`/tags/${encodeURIComponent(tag ?? "")}`, 301);
 ---
