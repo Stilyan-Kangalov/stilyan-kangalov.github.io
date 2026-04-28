@@ -1,19 +1,18 @@
 import ogImage from "@/assets/og-image.png";
 
 export const siteConfig = {
-  name: "Astro Starter Pro",
+  name: "Stilyan's Dev Lab",
   description:
-    "Starter template optimized for SEO and performance. A solid foundation to start your projects with best practices.",
-  url: "https://astrostarterpro.com",
+    "Master modern web development with practical guides, coding tips, and best practices. Explore full-stack solutions and industry trends to level up your technical skill.",
+  url: "https://stilyan.com",
   lang: "en",
   locale: "en_US",
-  author: "Devgelo",
+  author: "Stilyan Kangalov",
   twitter: "@Devgelo",
   ogImage: ogImage,
   socialLinks: {
     twitter: "https://twitter.com",
-    github: "https://github.com/devgelo-labs/astro-starter-pro",
-    discord: "https://discord.com",
+    github: "https://github.com/Stilyan-Kangalov",
   },
   navLinks: [
     { text: "Home", href: "/" },
