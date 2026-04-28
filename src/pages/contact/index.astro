@@ -1,5 +1,5 @@
 ---
-import BaseLayout from "@/layouts/BaseLayout.astro";
+import SiteLayout from "@/layouts/SiteLayout.astro";
 import Features from "@/components/widgets/Features.astro";
 import Content from "@/components/widgets/Content.astro";
 import Form from "@/components/ui/Form.astro";
@@ -12,7 +12,7 @@ const metadata = {
 const visionText = ["Get in touch with us to discuss your next project."];
 ---
 
-<BaseLayout {metadata}>
+<SiteLayout {metadata}>
   <Content tagline="Contact" title="Contact" description={visionText} />
   <div
     class="reveal mx-auto max-w-xl bg-card border border-border rounded-3xl p-8 shadow-sm mb-12 md:mb-16"
@@ -63,4 +63,4 @@ const visionText = ["Get in touch with us to discuss your next project."];
       },
     ]}
   />
-</BaseLayout>
+</SiteLayout>

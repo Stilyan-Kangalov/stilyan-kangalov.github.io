@@ -1,0 +1,25 @@
+---
+import { siteConfig } from "@/config/site";
+import Hero from "@/components/widgets/Hero.astro";
+---
+
+<Hero
+  title={`Starter Template for <br class="hidden md:block" /> <span class="bg-linear-to-r from-blue-400 via-purple-400 to-pink-400 bg-clip-text text-transparent">Web Developers</span>`}
+  tagline="Astro v5 + Tailwind v4"
+  description={`${siteConfig.description}`}
+  actions={[
+    {
+      text: "Get Started",
+      href: "https://github.com/devgelo-labs/astro-starter-pro",
+      variant: "primary",
+      icon: "lucide:github",
+    },
+    {
+      text: "Read Posts",
+      href: "/posts",
+      variant: "secondary",
+      icon: "lucide:arrow-right",
+      ariaLabel: "Explore published posts",
+    },
+  ]}
+/>

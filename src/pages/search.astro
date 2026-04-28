@@ -1,0 +1,132 @@
+---
+import SiteLayout from "@/layouts/SiteLayout.astro";
+import Headline from "@/components/ui/Headline.astro";
+import { getPublishedSortedPosts } from "@/utils/blog";
+
+const posts = await getPublishedSortedPosts();
+const searchablePosts = posts.map((post) => ({
+  id: post.id,
+  title: post.data.title,
+  description: post.data.description,
+  pubDate: post.data.pubDate.toISOString(),
+  tags: post.data.tags ?? [],
+}));
+
+const metadata = {
+  title: "Search",
+  description: "Search posts by title, description, and tags.",
+};
+---
+
+<SiteLayout metadata={metadata}>
+  <section class="relative px-4 py-16 sm:px-6 lg:px-8 md:py-20">
+    <div class="relative mx-auto max-w-4xl">
+      <Headline
+        tagline="Search"
+        title="Find Articles Fast"
+        subtitle="Search through all published posts by keywords."
+        classes={{
+          container: "mb-10 text-center",
+          title:
+            "font-heading mb-4 text-4xl font-bold tracking-tight text-foreground md:text-6xl",
+          subtitle: "mx-auto max-w-3xl text-xl text-muted-foreground",
+        }}
+      />
+
+      <div class="reveal rounded-2xl border border-border bg-card p-4 sm:p-6">
+        <label for="search-input" class="sr-only">Search posts</label>
+        <input
+          id="search-input"
+          type="search"
+          placeholder="Search by title, summary, or tag..."
+          class="w-full rounded-xl border border-border bg-background px-4 py-3 text-foreground outline-none transition-colors placeholder:text-muted-foreground focus:border-primary"
+        />
+
+        <p id="search-count" class="mt-4 text-sm text-muted-foreground">
+          {searchablePosts.length} results
+        </p>
+
+        <ul id="search-results" class="mt-5 space-y-3">
+          {
+            searchablePosts.map((post) => (
+              <li class="rounded-xl border border-border p-4 transition-colors hover:border-primary/40">
+                <a href={`/posts/${post.id}/`} class="block">
+                  <h2 class="text-lg font-semibold text-foreground">
+                    {post.title}
+                  </h2>
+                  <p class="mt-1 text-sm text-muted-foreground">
+                    {post.description}
+                  </p>
+                  <div class="mt-2 flex flex-wrap items-center gap-2">
+                    <time class="text-xs text-muted-foreground">
+                      {new Date(post.pubDate).toLocaleDateString("en-US", {
+                        year: "numeric",
+                        month: "short",
+                        day: "2-digit",
+                        timeZone: "UTC",
+                      })}
+                    </time>
+                    {post.tags.length > 0 && (
+                      <span class="text-xs text-muted-foreground">
+                        #{post.tags.join(" #")}
+                      </span>
+                    )}
+                  </div>
+                </a>
+              </li>
+            ))
+          }
+        </ul>
+      </div>
+    </div>
+  </section>
+</SiteLayout>
+
+<script define:vars={{ searchablePosts }}>
+  const input = document.querySelector("#search-input");
+  const count = document.querySelector("#search-count");
+  const results = document.querySelector("#search-results");
+
+  if (input && count && results) {
+    const render = (query) => {
+      const normalized = query.trim().toLowerCase();
+      const filtered = searchablePosts.filter((post) => {
+        const haystack =
+          `${post.title} ${post.description} ${post.tags.join(" ")}`.toLowerCase();
+        return haystack.includes(normalized);
+      });
+
+      count.textContent = `${filtered.length} result${filtered.length === 1 ? "" : "s"}`;
+
+      results.innerHTML = filtered
+        .map((post) => {
+          const date = new Date(post.pubDate).toLocaleDateString("en-US", {
+            year: "numeric",
+            month: "short",
+            day: "2-digit",
+            timeZone: "UTC",
+          });
+          const tags = post.tags.length > 0 ? `#${post.tags.join(" #")}` : "";
+          return `
+            <li class="rounded-xl border border-border p-4 transition-colors hover:border-primary/40">
+              <a href="/posts/${post.id}/" class="block">
+                <h2 class="text-lg font-semibold text-foreground">${post.title}</h2>
+                <p class="mt-1 text-sm text-muted-foreground">${post.description}</p>
+                <div class="mt-2 flex flex-wrap items-center gap-2">
+                  <time class="text-xs text-muted-foreground">${date}</time>
+                  ${tags ? `<span class="text-xs text-muted-foreground">${tags}</span>` : ""}
+                </div>
+              </a>
+            </li>
+          `;
+        })
+        .join("");
+    };
+
+    input.addEventListener("input", (event) => {
+      const target = event.target;
+      if (!(target instanceof HTMLInputElement)) return;
+      render(target.value);
+    });
+  }
+</script>

@@ -46,7 +46,7 @@
   document.addEventListener("astro:page-load", () => {
     const updateIcons = () => {
       const theme =
-        document.documentElement.getAttribute("data-theme") || "light";
+        document.documentElement.getAttribute("data-theme") || "dark";
       const btns = document.querySelectorAll(".theme-toggle-btn");
 
       btns.forEach((btn) => {

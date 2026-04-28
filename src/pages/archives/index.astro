@@ -1,0 +1,70 @@
+---
+import SiteLayout from "@/layouts/SiteLayout.astro";
+import Headline from "@/components/ui/Headline.astro";
+import { getPostsGroupedByYear } from "@/utils/blog";
+
+const archives = await getPostsGroupedByYear();
+const totalPosts = archives.reduce((sum, group) => sum + group.posts.length, 0);
+
+const metadata = {
+  title: "Archives",
+  description: "Browse all published posts by year.",
+};
+---
+
+<SiteLayout metadata={metadata}>
+  <section class="relative px-4 py-16 sm:px-6 lg:px-8 md:py-20">
+    <div class="relative mx-auto max-w-5xl">
+      <Headline
+        tagline="Archives"
+        title="All Posts by Year"
+        subtitle={`${totalPosts} article${totalPosts === 1 ? "" : "s"} published so far.`}
+        classes={{
+          container: "mb-12 text-center",
+          title:
+            "font-heading mb-4 text-4xl font-bold tracking-tight text-foreground md:text-6xl",
+          subtitle: "mx-auto max-w-3xl text-xl text-muted-foreground",
+        }}
+      />
+
+      <div class="space-y-8">
+        {
+          archives.map(({ year, posts }) => (
+            <section class="reveal rounded-2xl border border-border bg-card p-6">
+              <div class="mb-4 flex items-center justify-between gap-4">
+                <h2 class="text-2xl font-bold text-foreground">{year}</h2>
+                <span class="rounded-full bg-muted px-3 py-1 text-xs font-medium text-muted-foreground">
+                  {posts.length} post{posts.length === 1 ? "" : "s"}
+                </span>
+              </div>
+
+              <ul class="space-y-3">
+                {posts.map((post) => (
+                  <li class="flex flex-col gap-1 sm:flex-row sm:items-baseline sm:justify-between">
+                    <a
+                      href={`/posts/${post.id}/`}
+                      class="text-foreground hover:text-primary hover:underline"
+                    >
+                      {post.data.title}
+                    </a>
+                    <time
+                      datetime={post.data.pubDate.toISOString()}
+                      class="text-sm text-muted-foreground"
+                    >
+                      {post.data.pubDate.toLocaleDateString("en-US", {
+                        year: "numeric",
+                        month: "short",
+                        day: "2-digit",
+                        timeZone: "UTC",
+                      })}
+                    </time>
+                  </li>
+                ))}
+              </ul>
+            </section>
+          ))
+        }
+      </div>
+    </div>
+  </section>
+</SiteLayout>

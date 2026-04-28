@@ -1,0 +1,31 @@
+---
+import Features from "@/components/widgets/Features.astro";
+---
+
+<Features
+  tagline="Features"
+  title="What's Included"
+  subtitle="A selection of tools and configurations to streamline your workflow."
+  features={[
+    {
+      title: "Optimized SEO",
+      description:
+        "Base configuration for Meta tags, Open Graph, and Sitemap generation.",
+      icon: "lucide:scan-search",
+      iconClass: "bg-blue-500/10 text-blue-400",
+    },
+    {
+      title: "High Performance",
+      description: "Lightweight structure for fast load times.",
+      icon: "lucide:zap",
+      iconClass: "bg-purple-500/10 text-purple-400",
+    },
+    {
+      title: "Tailwind v4",
+      description:
+        "Integrated configuration with the latest version of Tailwind CSS.",
+      icon: "lucide:palette",
+      iconClass: "bg-pink-500/10 text-pink-400",
+    },
+  ]}
+/>

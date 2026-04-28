@@ -1,5 +1,5 @@
 ---
-import BaseLayout from "@/layouts/BaseLayout.astro";
+import SiteLayout from "@/layouts/SiteLayout.astro";
 import Schema from "@/components/seo/Schema.astro";
 
 import { getCollection, render } from "astro:content";
@@ -27,13 +27,13 @@ const readingTime = remarkPluginFrontmatter?.minutesRead
   : "";
 
 const metadata = {
-  title: title,
-  description: description,
+  title,
+  description,
   ogImage: image,
 };
 ---
 
-<BaseLayout metadata={metadata}>
+<SiteLayout metadata={metadata}>
   <Schema
     type="BlogPosting"
     data={{
@@ -74,4 +74,4 @@ const metadata = {
       </div>
     </div>
   </section>
-</BaseLayout>
+</SiteLayout>

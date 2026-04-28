@@ -1,0 +1,58 @@
+---
+import SiteLayout from "@/layouts/SiteLayout.astro";
+import type { GetStaticPathsOptions } from "astro";
+import Headline from "@/components/ui/Headline.astro";
+import Pagination from "@/components/Pagination.astro";
+import PostItem from "@/components/PostItem.astro";
+import { getUniqueTags, getPostsByTag } from "@/utils/blog";
+
+export async function getStaticPaths({ paginate }: GetStaticPathsOptions) {
+  const tags = await getUniqueTags();
+  const paths = [];
+  for (const tag of tags) {
+    const posts = await getPostsByTag(tag);
+    paths.push(
+      ...paginate(posts, {
+        params: { tag },
+        pageSize: 6,
+        props: { tag },
+      }),
+    );
+  }
+  return paths;
+}
+
+const { page, tag } = Astro.props;
+
+const metadata = {
+  title: `Posts tagged with '${tag}'`,
+  description: `Explore our articles about ${tag}.`,
+};
+---
+
+<SiteLayout metadata={metadata}>
+  <section class="relative px-4 py-24 sm:px-6 lg:px-8 md:py-32">
+    <div class="relative mx-auto max-w-5xl">
+      <Headline
+        tagline="Tag"
+        title={`#${tag}`}
+        subtitle={`Showing ${page.total} article${page.total === 1 ? "" : "s"}.`}
+        classes={{
+          container: "mb-12 text-center",
+          title:
+            "font-heading mb-4 text-4xl font-bold tracking-tight text-foreground md:text-6xl capitalized",
+          subtitle: "mx-auto max-w-3xl text-xl text-muted-foreground",
+        }}
+      />
+
+      <div class="mb-8 text-center">
+        <a href="/tags/" class="text-primary hover:underline">← Back to tags</a>
+      </div>
+
+      <div class="grid gap-8 md:grid-cols-2 lg:grid-cols-3">
+        {page.data.map((post) => <PostItem post={post} />)}
+      </div>
+      <Pagination page={page} />
+    </div>
+  </section>
+</SiteLayout>

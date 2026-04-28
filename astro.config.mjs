@@ -7,6 +7,11 @@ import remarkReadingTime from "remark-reading-time";
 
 export default defineConfig({
   site: "https://stilyan-kangalov.github.io",
+  redirects: {
+    "/blog": "/posts",
+    "/blog/category/[category]": "/archives",
+    "/blog/[...slug]": "/posts/[...slug]",
+  },
   integrations: [sitemap(), icon(), mdx()],
   markdown: {
     remarkPlugins: [

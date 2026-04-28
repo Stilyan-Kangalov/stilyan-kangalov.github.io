@@ -3,7 +3,7 @@ import ogImage from "@/assets/og-image.png";
 export const siteConfig = {
   name: "Stilyan's Dev Lab",
   description:
-    "Master modern web development with practical guides, coding tips, and best practices. Explore full-stack solutions and industry trends to level up your technical skill.",
+    "Master modern web development with practical guides, coding tips, and best practices.",
   url: "https://stilyan.com",
   lang: "en",
   locale: "en_US",
@@ -17,10 +17,10 @@ export const siteConfig = {
   },
   navLinks: [
     { text: "Home", href: "/" },
+    { text: "Posts", href: "/posts" },
     { text: "About", href: "/about" },
-    { text: "Services", href: "/services" },
-    { text: "Blog", href: "/blog" },
     { text: "Contact", href: "/contact" },
-    { text: "Widgets", href: "/widgets" },
+    { text: "Archives", href: "/archives" },
+    { text: "Search", href: "/search" },
   ],
 };

@@ -1,0 +1,12 @@
+---
+import type { CollectionEntry } from "astro:content";
+import BlogPostItem from "@/components/blog/PostItem.astro";
+
+interface Props {
+  post: CollectionEntry<"blog">;
+}
+
+const { post } = Astro.props as Props;
+---
+
+<BlogPostItem post={post} />

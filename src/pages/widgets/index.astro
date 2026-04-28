@@ -1,5 +1,5 @@
 ---
-import BaseLayout from "@/layouts/BaseLayout.astro";
+import SiteLayout from "@/layouts/SiteLayout.astro";
 import Hero from "@/components/widgets/Hero.astro";
 import Features from "@/components/widgets/Features.astro";
 import Content from "@/components/widgets/Content.astro";
@@ -220,7 +220,7 @@ const metadata = {
 };
 ---
 
-<BaseLayout {metadata}>
+<SiteLayout {metadata}>
   <Hero {...heroProps} />
   <Features {...featuresProps} />
   <Content {...contentProps} />
@@ -228,4 +228,4 @@ const metadata = {
   <Content2 {...content2InvertedProps} />
   <ServiceList {...serviceListProps} />
   <Values {...valuesProps} />
-</BaseLayout>
+</SiteLayout>

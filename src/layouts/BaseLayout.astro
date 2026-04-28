@@ -15,8 +15,8 @@ interface Props {
 
 import Seo from "@/components/seo/Seo.astro";
 import Schema from "@/components/seo/Schema.astro";
-import Navbar from "@/components/layout/Navbar.astro";
-import Footer from "@/components/layout/Footer.astro";
+import Header from "@/components/Header.astro";
+import Footer from "@/components/Footer.astro";
 import { ClientRouter } from "astro:transitions";
 import "@/styles/global.css";
 import SpeedInsights from "@vercel/speed-insights/astro";
@@ -54,10 +54,7 @@ const finalIgnoreTitleTemplate = metadata?.ignoreTitleTemplate || false;
         ) {
           return localStorage.getItem("theme");
         }
-        if (window.matchMedia("(prefers-color-scheme: dark)").matches) {
-          return "dark";
-        }
-        return "light";
+        return "dark";
       };
 
       const setTheme = () => {
@@ -98,7 +95,7 @@ const finalIgnoreTitleTemplate = metadata?.ignoreTitleTemplate || false;
         </div>
       </div>
 
-      <Navbar />
+      <Header />
       <main id="main-content" class="relative z-10 grow pt-[72px]">
         <slot />
       </main>

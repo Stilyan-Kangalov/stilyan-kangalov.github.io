@@ -1,0 +1,14 @@
+---
+import type { Page } from "astro";
+import type { CollectionEntry } from "astro:content";
+import PaginationUI from "@/components/ui/Pagination.astro";
+
+interface Props {
+  page: Page<CollectionEntry<"blog">>;
+  class?: string;
+}
+
+const { page, class: className } = Astro.props as Props;
+---
+
+<PaginationUI page={page} class={className} />

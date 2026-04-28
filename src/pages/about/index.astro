@@ -1,5 +1,5 @@
 ---
-import BaseLayout from "@/layouts/BaseLayout.astro";
+import SiteLayout from "@/layouts/SiteLayout.astro";
 import { getImage } from "astro:assets";
 import Content2 from "@/components/widgets/Content2.astro";
 import Values from "@/components/widgets/Values.astro";
@@ -50,7 +50,7 @@ const optimizedImage = await getImage({
 });
 ---
 
-<BaseLayout {metadata}>
+<SiteLayout {metadata}>
   <link slot="head" rel="preload" href={optimizedImage.src} as="image" />
   <Content2
     title="Our Vision"
@@ -83,4 +83,4 @@ const optimizedImage = await getImage({
     title="What Defines Us"
     subtitle="Principles that guide our daily work"
   />
-</BaseLayout>
+</SiteLayout>

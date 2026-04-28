@@ -1,0 +1,51 @@
+---
+import SiteLayout from "@/layouts/SiteLayout.astro";
+import { getUniqueTags, getPostsByTag } from "@/utils/blog";
+import Headline from "@/components/ui/Headline.astro";
+
+const tags = await getUniqueTags();
+const tagStats = await Promise.all(
+  tags.map(async (tag) => ({
+    tag,
+    count: (await getPostsByTag(tag)).length,
+  })),
+);
+
+const metadata = {
+  title: "Tags",
+  description: "Browse all topics we write about.",
+};
+---
+
+<SiteLayout metadata={metadata}>
+  <section class="relative px-4 py-24 sm:px-6 lg:px-8 md:py-32">
+    <div class="relative mx-auto max-w-5xl">
+      <Headline
+        tagline="Tags"
+        title="Browse by Tag"
+        subtitle="Explore articles grouped by topics."
+        classes={{
+          container: "mb-12 text-center",
+          title:
+            "font-heading mb-4 text-4xl font-bold tracking-tight text-foreground md:text-6xl",
+          subtitle: "mx-auto max-w-3xl text-xl text-muted-foreground",
+        }}
+      />
+
+      <ul class="grid gap-4 sm:grid-cols-2 lg:grid-cols-3">
+        {
+          tagStats.map(({ tag, count }) => (
+            <li class="reveal rounded-2xl border border-border bg-card p-5 transition-colors hover:border-primary/40">
+              <a href={`/tags/${encodeURIComponent(tag)}/`} class="block">
+                <p class="text-lg font-semibold text-foreground">#{tag}</p>
+                <p class="mt-1 text-sm text-muted-foreground">
+                  {count} article{count === 1 ? "" : "s"}
+                </p>
+              </a>
+            </li>
+          ))
+        }
+      </ul>
+    </div>
+  </section>
+</SiteLayout>

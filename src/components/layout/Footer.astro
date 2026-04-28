@@ -1,45 +1,91 @@
 ---
 import { siteConfig } from "@/config/site";
+import { Icon } from "astro-icon/components";
 ---
 
-<footer class="mt-20 border-t border-border bg-card">
-  <div class="mx-auto max-w-7xl px-4 py-12 sm:px-6 lg:px-8">
-    <div class="flex flex-col items-center justify-between gap-8 md:flex-row">
-      <div class="flex flex-col items-center gap-2 md:items-start">
-        <span class="text-lg font-bold text-foreground">{siteConfig.name}</span>
-        <p class="text-sm text-muted-foreground">
+<footer class="mt-20 border-t border-border bg-card/80">
+  <div
+    class="h-px w-full bg-linear-to-r from-transparent via-border/40 to-transparent"
+  >
+  </div>
+  <div class="mx-auto max-w-7xl px-4 py-10 sm:px-6 lg:px-8">
+    <div
+      class="flex flex-col items-center justify-between gap-8 sm:flex-row sm:items-start"
+    >
+      <div class="flex flex-col items-center gap-2 sm:items-start">
+        <span class="text-lg font-bold tracking-tight text-foreground"
+          >{siteConfig.name}</span
+        >
+        <p
+          class="max-w-md text-center text-sm text-muted-foreground sm:text-left"
+        >
           {siteConfig.description}
         </p>
       </div>
-      <div class="flex items-center gap-6">
-        <a
-          href={siteConfig.socialLinks.twitter}
-          target="_blank"
-          rel="noopener noreferrer"
-          class="text-muted-foreground transition-colors hover:text-primary"
-          >Twitter</a
+
+      <nav
+        class="flex flex-col items-center gap-3 sm:items-end"
+        aria-label="Social links"
+      >
+        <p
+          class="text-[11px] font-semibold tracking-wider text-muted-foreground uppercase"
         >
-        <a
-          href={siteConfig.socialLinks.github}
-          target="_blank"
-          rel="noopener noreferrer"
-          class="text-muted-foreground transition-colors hover:text-primary"
-          >GitHub</a
-        >
-        <a
-          href={siteConfig.socialLinks.discord}
-          target="_blank"
-          rel="noopener noreferrer"
-          class="text-muted-foreground transition-colors hover:text-primary"
-          >Discord</a
-        >
-      </div>
+          Connect
+        </p>
+        <ul class="flex items-center gap-2" role="list">
+          <li>
+            <a
+              href={siteConfig.socialLinks.twitter}
+              target="_blank"
+              rel="noopener noreferrer"
+              aria-label="Twitter"
+              title="Twitter"
+              class="group inline-flex size-9 items-center justify-center rounded-xl border border-border/40 bg-muted/30 text-muted-foreground transition-all duration-200 hover:-translate-y-0.5 hover:border-primary/40 hover:bg-primary/10 hover:text-primary"
+            >
+              <Icon name="lucide:twitter" class="size-4" />
+            </a>
+          </li>
+          <li>
+            <a
+              href={siteConfig.socialLinks.github}
+              target="_blank"
+              rel="noopener noreferrer"
+              aria-label="GitHub"
+              title="GitHub"
+              class="group inline-flex size-9 items-center justify-center rounded-xl border border-border/40 bg-muted/30 text-muted-foreground transition-all duration-200 hover:-translate-y-0.5 hover:border-primary/40 hover:bg-primary/10 hover:text-primary"
+            >
+              <Icon name="lucide:github" class="size-4" />
+            </a>
+          </li>
+          <li>
+            <a
+              href={siteConfig.socialLinks.discord}
+              target="_blank"
+              rel="noopener noreferrer"
+              aria-label="Discord"
+              title="Discord"
+              class="group inline-flex size-9 items-center justify-center rounded-xl border border-border/40 bg-muted/30 text-muted-foreground transition-all duration-200 hover:-translate-y-0.5 hover:border-primary/40 hover:bg-primary/10 hover:text-primary"
+            >
+              <Icon name="lucide:message-circle" class="size-4" />
+            </a>
+          </li>
+        </ul>
+      </nav>
     </div>
     <div
-      class="mt-8 border-t border-border pt-8 text-center text-xs text-muted-foreground"
+      class="mt-8 h-px w-full bg-linear-to-r from-transparent via-border/30 to-transparent"
     >
-      &copy; {new Date().getFullYear()}
-      {siteConfig.author}. All rights reserved.
+    </div>
+    <div
+      class="mt-4 flex flex-col items-center justify-between gap-2 sm:flex-row"
+    >
+      <p class="text-[11px] tracking-wide text-muted-foreground">
+        &copy; {new Date().getFullYear()}
+        {siteConfig.author}. All rights reserved.
+      </p>
+      <p class="text-[11px] tracking-wide text-muted-foreground/80">
+        Built with care for fast reading.
+      </p>
     </div>
   </div>
 </footer>
