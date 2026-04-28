@@ -13,6 +13,7 @@ export const siteConfig = {
   socialLinks: {
     twitter: "https://twitter.com",
     github: "https://github.com/Stilyan-Kangalov",
+    discord: "https://discord.com",
   },
   navLinks: [
     { text: "Home", href: "/" },
